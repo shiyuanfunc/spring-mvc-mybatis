@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop.xsd
+	    http://www.springframework.org/schema/mvc
+	    http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+
+
+    <!-- 扫描注解 -->
+    <context:component-scan base-package="com.song">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <context:property-override file-encoding="utf-8" location="classpath:jdbc.properties"/>
+    <!-- 数据源 dataSource-->
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"/>
+
+    <!-- JdbcTemplate -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource"/>
+
+    <!--  事务管理器 -->
+
+
+    <!-- 启用注解 -->
+    <mvc:annotation-driven/>
+
+    <!--  web 通信 -->
+    <!-- 将myHandler 映射到 路径 -->
+    <websocket:handlers>
+        <websocket:mapping path="/hello" handler="myHandler"/>
+    </websocket:handlers>
+    <!-- 声明一个websocket对象 -->
+    <bean id="myHandler" class="com.song.controller.WebScoket"/>
+</beans>

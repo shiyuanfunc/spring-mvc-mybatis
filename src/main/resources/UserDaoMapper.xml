@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.song.dao.UserDao">
+
+    <select id="login" resultType="user">
+     select * from songyh_user where username = #{username}
+    </select>
+
+    <select id="queryUsers" resultType="map">
+        SELECT * from songyh_user
+    </select>
+
+    <select id="ztree" resultType="map">
+        select * from songyh_bbs_comments start with id = 7 connect by prior id = pid
+    </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.song.bean.TestMybatisMapper">
+
+    <insert id="saveUser" parameterType="com.song.bean.TestMybatis" >
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            SELECT songyh_testUser_seq.Nextval as id from dual
+        </selectKey>
+        insert into songyh_testUser(id,userName,age) values (#{id} ,#{userName},#{age})
+    </insert>
+
+    <select id="queryuser" parameterType="int" resultType="TestMybatis">
+        SELECT * from songyh_testUser where id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="int" >
+        update songyh_testUser set userName = #{id} where id =#{id}
+    </update>
+
+    <delete id="delUser" parameterType="int">
+        delete songyh_testUser where id = #{id}
+    </delete>
+
+    <select id="queryAllUser" resultType="map">
+        select * from songyh_testUser
+    </select>
+
+    <!--<select id="queryTwoTable" resultMap="">
+
+
+    </select>-->
+</mapper>
